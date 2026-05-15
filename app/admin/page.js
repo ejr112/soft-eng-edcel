@@ -15,6 +15,21 @@ export default function AdminDashboard() {
   const [finesData, setFinesData] = useState(null);
   const [adminUser, setAdminUser] = useState(null);
   const router = useRouter();
+  const localBooksKey = 'admin-local-books';
+
+  const loadLocalBooks = () => {
+    if (typeof window === 'undefined') return [];
+    try {
+      return JSON.parse(localStorage.getItem(localBooksKey) || '[]');
+    } catch {
+      return [];
+    }
+  };
+
+  const saveLocalBooks = (booksList) => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(localBooksKey, JSON.stringify(booksList));
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem('user');
@@ -36,9 +51,22 @@ export default function AdminDashboard() {
   };
 
   const fetchBooks = async () => {
-    const res = await fetch('/api/books');
-    const data = await res.json();
-    setBooks(Array.isArray(data) ? data : []);
+    try {
+      const res = await fetch('/api/books');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setBooks(data);
+          saveLocalBooks(data);
+          return;
+        }
+      }
+    } catch (err) {
+      // ignore and fallback to local storage
+    }
+
+    const fallbackBooks = loadLocalBooks();
+    setBooks(fallbackBooks);
   };
 
   const loadFines = async () => {
@@ -58,6 +86,19 @@ export default function AdminDashboard() {
     });
     const data = await res.json();
     setStatusMessage(data.message || data.error || 'Action completed');
+
+    if (res.ok) {
+      const newBook = {
+        id: bookForm.bookId,
+        title: bookForm.title,
+        author: bookForm.author,
+        available_copies: Number(bookForm.copies),
+      };
+      const currentBooks = loadLocalBooks();
+      const updatedBooks = [newBook, ...currentBooks.filter((book) => String(book.id) !== String(newBook.id))];
+      saveLocalBooks(updatedBooks);
+    }
+
     fetchBooks();
   };
 
@@ -70,6 +111,13 @@ export default function AdminDashboard() {
     });
     const data = await res.json();
     setStatusMessage(data.message || data.error || 'Action completed');
+
+    if (res.ok) {
+      const currentBooks = loadLocalBooks();
+      const updatedBooks = currentBooks.filter((book) => String(book.id) !== String(bookDeleteId));
+      saveLocalBooks(updatedBooks);
+    }
+
     fetchBooks();
   };
 

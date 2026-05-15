@@ -143,6 +143,40 @@
   font-size: 1.4rem;
 }
 
+.primary-btn,
+.secondary-btn,
+.logout-button {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+}
+
+.primary-btn {
+  background: var(--navy);
+  color: white;
+}
+
+.secondary-btn {
+  background: #eff6ff;
+  color: var(--text-main);
+}
+
+.logout-button {
+  background: white;
+  color: var(--navy);
+  border: 1px solid rgba(16, 24, 40, 0.12);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover,
+.logout-button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
