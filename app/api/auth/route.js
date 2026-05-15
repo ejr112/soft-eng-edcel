@@ -1,14 +1,15 @@
 import pool from '../../../lib/db';
 import fs from 'fs/promises';
+import os from 'os';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const dataDir = path.join(__dirname, '../../../../..', '.data');
-const usersFile = path.join(dataDir, 'authorized_users.json');
 
 const useLocalAuth = !process.env.DATABASE_URL;
+const dataDir = useLocalAuth
+  ? (process.env.NODE_ENV === 'production'
+      ? path.join(os.tmpdir(), 'soft-eng-auth')
+      : path.join(process.cwd(), '.data'))
+  : null;
+const usersFile = useLocalAuth ? path.join(dataDir, 'authorized_users.json') : null;
 
 const ensureUsersFile = async () => {
   await fs.mkdir(dataDir, { recursive: true });
