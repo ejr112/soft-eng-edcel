@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './dashboard.css';
-import generateTicket from '../../lib/ticket.js';
+import { generateTicket } from '../../lib/ticket.js';
 
 export default function StudentDashboard() {
   const [user, setUser] = useState(null);
