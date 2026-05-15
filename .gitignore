@@ -94,6 +94,7 @@ jspm_packages/
 # Temporary folders
 tmp/
 temp/
+.data/
 
 # Nested duplicate project folder
 soft_eng_library/
