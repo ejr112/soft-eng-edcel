@@ -1,0 +1,85 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Left Section: Hero */
+.login-hero {
+  flex: 1;
+  background-color: var(--navy);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+}
+
+.login-hero h1 {
+  color: var(--gold);
+  font-size: 4rem;
+  font-family: serif;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.login-hero p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+}
+
+/* Right Section: Form */
+.login-form-area {
+  flex: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+}
+
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+}
+
+.login-box h2 {
+  font-size: 32px;
+  font-family: serif;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.login-box .subtitle {
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  font-size: 14px;
+}
+
+.login-btn {
+  width: 100%;
+  background-color: var(--navy);
+  color: white;
+  padding: 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-top: 10px;
+  border: none;
+}
+
+.login-btn:hover {
+  background-color: #1f2937;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.signup-link span {
+  color: var(--gold);
+  font-weight: 700;
+  cursor: pointer;
+}
