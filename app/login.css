@@ -1,17 +1,19 @@
 .login-container {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Left Section: Hero */
 .login-hero {
-  flex: 1;
+  flex: 1 1 420px;
   background-color: var(--navy);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px;
+  padding: clamp(40px, 6vw, 80px);
   position: relative;
 }
 
@@ -30,7 +32,8 @@
 
 /* Right Section: Form */
 .login-form-area {
-  flex: 0.8;
+  flex: 1 1 420px;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,6 +44,9 @@
   width: 100%;
   max-width: 420px;
   padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+  background: #ffffff;
 }
 
 .login-box h2 {
@@ -48,6 +54,31 @@
   font-family: serif;
   font-weight: 700;
   margin-bottom: 8px;
+}
+
+label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #f9fafb;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--gold);
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.14);
 }
 
 .login-box .subtitle {
