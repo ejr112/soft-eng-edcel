@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './dashboard.css';
+import generateTicket from '../../lib/ticket.js';
 
 export default function StudentDashboard() {
   const [user, setUser] = useState(null);
@@ -46,10 +47,15 @@ export default function StudentDashboard() {
     const result = await res.json();
 
     if (res.ok) {
-      alert('Request successful! You can pick up your book at the counter.');
+      alert('Borrow successful! Generating your digital borrowal ticket...');
       setBorrowId('');
       fetchBooks();
-      fetchBorrows(user.email);
+      const borrowsRes = await fetch(`/api/books/my-borrows?email=${encodeURIComponent(user.email)}`);
+      const borrowsData = await borrowsRes.json();
+      setActiveBorrows(Array.isArray(borrowsData) ? borrowsData : []);
+      if (Array.isArray(borrowsData) && borrowsData.length > 0) {
+        generateTicket(borrowsData[0]);
+      }
     } else {
       alert(result.error || 'Unable to borrow book.');
     }
